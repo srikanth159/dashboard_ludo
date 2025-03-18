@@ -1,0 +1,189 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.listofusers,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.listofusers ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.date {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#wdrncnt {
+  margin-top: 30px;
+  width: 550px;
+  height: 100px;
+  background-color: #c4ff4d;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 25px;
+}
+#wtrdntxt {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#ttlwlcnt {
+  margin-top: 30px;
+  padding-top: 10;
+  width: 430px;
+  height: 100px;
+  margin-left: 10px;
+  background-color: #b82e8a;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 25px;
+}
+
+#admnern,
+#mtcrstd,
+#dpstd,
+#nwsr {
+  width: 220px;
+  height: 90px;
+  background-color: #33ffff;
+  padding-left: 28px;
+  border-radius: 25px;
+}
+#ttlwdcnt {
+  margin-top: 5px;
+  margin-left: 8px;
+}
+#wltcnt {
+  display: flex;
+  flex-direction: row;
+}
+
+#trackusrcntdpst {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+#usrcntsct {
+  margin-top: 5px;
+  background-color: #ffff66;
+  width: 550px;
+  height: 200px;
+  border-radius: 25px;
+}
+#usrcntsct ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#nrgstusr {
+  margin-top: 2px;
+  margin-left: 18px;
+}
+#usrcntsct li {
+  padding: 25px;
+}
+#dpstusr {
+  margin-left: 10px;
+  width: 430px;
+  height: 200px;
+  border-radius: 25px;
+  background-color: #ffff66;
+}
+#dpstusrtxt {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.adnlgn {
+  margin-top: 100px;
+  text-align: center;
+  margin-bottom: 100px;
+}
+#admnhdg {
+  font-size: 38px;
+  color: #007399;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+#adusrnm {
+  font-size: 18px;
+  color: #007399;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+#admnusrlb {
+  width: 250px;
+  height: 40px;
+}
+#admnlbpwd {
+  font-size: 18px;
+  color: #007399;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+#admnpwdlb {
+  width: 250px;
+  height: 40px;
+}
+#admnbtnp {
+  margin-top: 10px;
+  width: 80px;
+  height: 30px;
+}
+#activityevents {
+  display: flex;
+}
+#activityevents,
+div {
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 15px;
+}
+#mngusrs {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 18px;
+  margin-bottom: 15px;
+}
+#sbrtxt {
+  width: 900px;
+  height: 40px;
+}
+#sbrfndbtnp {
+  width: 55px;
+  height: 40px;
+}
+#kyctextfld {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 45px;
+}
+#kncusdet {
+  display: flex;
+}
+#ntfcbtnp {
+  margin-left: 860px;
+}
+.dialog {
+  width: 500px;
+  height: 190px;
+  background-color: rgb(163, 194, 194);
+  margin-left: 100px;
+}
+#notification-input{
+  width:465px;
+  height: 135px;
+  margin-left: 10px;
+}
+#submit-btn{
+  margin-left: 200px;
+}

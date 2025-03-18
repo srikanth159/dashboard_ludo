@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loginscreen</title>
+    <style>
+      *{
+        margin: 0;
+        padding: 0;  
+        box-sizing: border-box;
+        }
+        .loginscreen{
+            margin-top: 150px;
+            margin-bottom: auto;
+            text-align: center;
+            
+        }
+        body{
+         background-image: url('https://ludotopper.fun/assets/images/background.jpg');
+         
+        }
+        #heading{
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 35px;
+          color: #ffff33;
+        }
+        #subheading{
+          margin-top: 9px;
+          font-size: 25px;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: #ffff33;
+        }
+        #usertextname{
+          color: #ffff33;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+        }
+        #usnmfield{
+          width:280px;
+          height:40px;
+        }
+        #pwdheading{
+          color:#ffff33;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+        }
+        #usrpwfield{
+          width:280px;
+          height:40px;
+        }
+        #btntxt{
+          color: #4d0000;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 18px;
+          font-weight: bold;
+          width:120px;
+          height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="loginscreen">
+    <h1 id="heading">Login</h1>
+    <h3 id="subheading">please Login to continue</h3>
+        <form method="post" action="/">
+           <div id ="userid">
+              <br>
+                <label id="usertextname">Enter your email or username</label>
+                </br>
+            </div>
+       <div id ="usertext">
+        <br>
+         <input type="text" name="username" id="usnmfield" placeholder="please enter your Email or username"/>
+       </div>
+      <div id="pwdfield">
+        <br>
+        <label id="pwdheading">Enter your Password</label>
+        </br>
+        <br>
+         <input type="password" name="userpassword" id="usrpwfield" placeholder="please enter your password"/>
+        </br>  
+      </div>
+      <div id="sbtmbtnp">
+        <br>
+        <button id="btntxt">Login</button>
+      </br>
+      </div>
+    </form>
+  </div>
+  
+</body>
+</html>

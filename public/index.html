@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <m\eta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ludo Game</title>
+  <style>
+     body{
+         background-image: url('https://ludotopper.fun/assets/images/background.jpg');
+         background-size: cover;
+         margin: 0;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     } 
+     .navbar,ul{
+       list-style-type: none;
+       margin:0;
+       padding: 0;
+       text-align: center;
+       background-color: rgba(0,0,0,0.5);
+
+     }
+    .navbar ul{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px,0;
+    }
+    .navbar li a{
+     padding: 10px 20px;
+     color: #ffffff;
+     cursor: pointer;
+     font-size: 18px;
+     transition: background-color 0.38 ease;
+    }
+    .navbar li:hover{
+      background-color: rgba(255,255,255,0.2);
+    }
+    /* media queries for mobile responsive design*/
+    @media (max-width:768px){
+      .navbar ul{
+        flex-direction: column;
+      }
+      .navbar li{
+        font-size: 16px;
+        padding: 8px 16px;
+      }
+    }
+    @media (max-width:480px){
+      .navbar li{
+        font-size: 14px;
+        padding: 6px,12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/matches">Matches</a></li>
+      <li><a href="/accounts">Accounts</a></li>
+      <li><a href="/notifications">Notifications</a></li>
+    </ul>
+  </div>
+ 
+   <script src="/socket.io/socket.io.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const socket = io();
+
+  socket.on('playersJoin', (players) => {
+    const board = document.getElementById('board');
+    if (!board) {
+      console.error("Board element not found!");
+      return;
+    }
+
+    players.forEach((player) => {
+      let playerDiv = document.getElementById(player.id);
+      if (!playerDiv) {
+        playerDiv = document.createElement('div');
+        playerDiv.id = player.id;
+        playerDiv.innerText = `Player ${player.id} is at position ${player.position}`;
+        board.appendChild(playerDiv);
+      }
+    });
+  });
+  socket.on("updatePosition",({Id:playerId,position}) =>{
+    const player = players.find(player=>pl.id === playerId);
+    if(player){
+      player.position = position;
+      io.emit('playersUpdate',players);
+    }
+  }) 
+  socket.on('playersUpdate', (updatedPlayers) => {
+    console.log("Updated players:", updatedPlayers);
+
+    // Update the UI with the new player positions
+    updatedPlayers.forEach(player => {
+        // Assuming you have elements like <div id="player-<player.id>"> for each player
+        const playerElement = document.getElementById(`player-${player.id}`);
+        if (playerElement) {
+            playerElement.innerText = `Position: ${player.position}`;
+        }
+    });
+});
+  
+const rollDiceButton = document.getElementById('rollDiceBtn');
+      rollDiceButton.addEventListener("click", rollDice);
+    });
+
+    
+  </script>
+</body>
+</html>
