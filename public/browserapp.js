@@ -81,7 +81,7 @@ document.getElementById("Admin-logs-link").onclick = function loadAdminlogs() {
 
 document.getElementById("Mangusrs-links").onclick = function loadMangeusers() {
   document.getElementById("main-content").innerHTML = `
-       <div class="w3-container w3-teal">
+       <div class="w3-container w3-teal"><h1>Manage Users</h1></div>
      <h1>users</h1>
      </div>
      <p id=mngusrs>Manage users</p>
