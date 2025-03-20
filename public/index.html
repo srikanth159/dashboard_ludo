@@ -52,6 +52,29 @@
         padding: 6px,12px;
       }
     }
+    img#fstimage {
+   display: block; /* Ensure it's visible */
+}
+.gamessectionfrst{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.gamesectionscnd{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.item{
+  margin-left: 45px;
+  margin-top: 45px;
+}
+#board{
+  margin-top: 15px;
+  color: #ffffff;
+  margin-left: 505px;
+}
   </style>
 </head>
 <body>
@@ -64,7 +87,15 @@
       <li><a href="/notifications">Notifications</a></li>
     </ul>
   </div>
- 
+    <div class="gamessectionfrst">
+    <div class="item"><a href="#"><img src="./assets/images/ludoking-img1.jpg" alt="firstimg"></a></div>
+    <div class="item"><a href="#"></a><img src="./assets/images/ludoking-img2.jpg" alt="secondtimg"></div>
+    </div>
+    <div class="gamesectionscnd">
+    <div class="item"><a href="#"><img src="./assets/images/ludoking-img3.jpg" alt="thirdimg"></a></div>
+    <div class="item"><a href="#"></a><img src="./assets/images/ludoking-img4.jpg" alt="fourthimg"></a></div>
+    </div>
+    <div id="board"></div>
    <script src="/socket.io/socket.io.js"></script>
   <script>
 document.addEventListener("DOMContentLoaded", () => {

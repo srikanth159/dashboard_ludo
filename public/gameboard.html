@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="triggerUpdate">Roll Dice</button>
+    <button id="triggerFirstUpdate">Roll Dice</button>
+    <button id="secondtriggerUpdate">Roll Dice</button>
+    <button id="fourthtriggerUpdate">Roll Dice</button>
+    <div id="board"></div>
+    <div id="firstboard"></div>
+    <div id="secondboard"></div>
+    <div id="thirdboard"></div>
+    <div id="fourthboard"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      document.addEventListener("DOMContentLoaded", () => {
+        const socket = io();
+
+        // Listen for "connectioningsockt" and handle the received message
+        socket.on("connectioningsockt", (message) => {
+          const board = document.getElementById("board");
+          if (board) {
+            board.innerHTML = message; // Display the message in the 'board' div
+          } else {
+            console.error("Board element not found!");
+          }
+        });
+        socket.on("update", (message) => {
+          const board = document.getElementById("secondboard");
+          if (board) {
+            board.innerHTML = message; // Display the received message
+          } else {
+            console.error("Board element not found!");
+          }
+        });
+        socket.on("newupdate", (message) => {
+          const board = document.getElementById("thirdboard");
+          if (board) {
+            board.innerHTML = message;
+          } else {
+            console.error("Board element not found");
+          }
+        });
+        socket.on("fourthPlayer", (message) => {
+          const board = document.getElementById("fourthboard");
+          if (board) {
+            board.innerHTML = message;
+          } else {
+            console.error("Board element not found");
+          }
+        });
+        socket.on("firstplayer", (message) => {
+          const board = document.getElementById("firstboard");
+          if (board) {
+            board.innerHTML = message;
+          } else {
+            console.error("Board element not found");
+          }
+        });
+        // Triggering the "updateexistingconnection" event when needed
+        const triggerButton = document.getElementById("triggerUpdate");
+        if (triggerButton) {
+          triggerButton.addEventListener("click", () => {
+            socket.emit("updateexistingconnection");
+          });
+        }
+        const triggeredButton = document.getElementById("secondtriggerUpdate");
+        if (triggeredButton) {
+          triggeredButton.addEventListener("click", () => {
+            socket.emit("newconnectionsing");
+          });
+        }
+        const fourthdiv = document.getElementById("fourthtriggerUpdate");
+        if (fourthdiv) {
+          fourthdiv.addEventListener("click", () => {
+            socket.emit("fourtplayerupdate");
+          });
+        }
+        const firstDiv = document.getElementById("triggerFirstUpdate");
+        if (firstDiv) {
+          firstDiv.addEventListener("click", () => {
+            socket.emit("firstplayerupdate");
+          });
+        }
+      });
+
+      // document.addEventListener("DOMContentLoaded", () => {
+      //   const socket = io();
+
+      //   // Listen for player joins
+      //   socket.on("playersJoin", (players) => {
+      //     const board = document.getElementById("board");
+      //     board.innerHTML = ""; // Clear the board before updating
+
+      //     players.forEach((player) => {
+      //       let playerDiv = document.getElementById(`player-${player.id}`);
+      //       if (!playerDiv) {
+      //         playerDiv = document.createElement("div");
+      //         playerDiv.id = `player-${player.id}`;
+      //         playerDiv.innerText = `Player ${player.id} is at position ${player.position}`;
+      //         board.appendChild(playerDiv);
+      //       }
+      //     });
+      //   });
+
+      //   // Listen for game-ready message
+      //   socket.on("gameReady", (message) => {
+      //     alert(message); // Notify players the game is ready
+      //   });
+
+      //   // Listen for game start
+      //   socket.on("gameStart", (message) => {
+      //     alert(message); // Notify players the game has started
+      //   });
+
+      //   // Listen for game not starting
+      //   socket.on("gameNotStarted", (message) => {
+      //     alert(message); // Notify players the game cannot start
+      //   });
+
+      //   // Listen for special actions (e.g., rolling a 6)
+      //   socket.on("specialAction", (message) => {
+      //     alert(message); // Notify special action
+      //   });
+
+      //   // Listen for position updates
+      //   socket.on("updatePosition", ({ id: playerId, position, diceValue }) => {
+      //     const playerElement = document.getElementById(`player-${playerId}`);
+      //     if (playerElement) {
+      //       playerElement.innerText = `Player ${playerId} rolled ${diceValue} and is at position ${position}`;
+      //     }
+      //   });
+
+      //   // Handle dice roll button click
+      //   document.getElementById("rollDiceBtn").onclick = () => {
+      //     socket.emit("rollDice");
+      //   };
+
+      //   // Error handling
+      //   socket.on("errorMessage", (message) => {
+      //     alert(message); // Show error messages to players
+      //   });
+      // });
+    </script>
+  </body>
+</html>
