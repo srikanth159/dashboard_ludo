@@ -143,7 +143,7 @@
 //   server.listen(5000, () => {
 //     console.log("Server is listening at port 5000");
 //   });
-const express = require("express");
+const express = require("express")
 const { socket } = require("node:dgram");
 const { createServer } = require("node:http");
 const { join } = require("node:path");
@@ -154,8 +154,8 @@ const server = createServer(app);
 const io = new Server(server);
 app.use(express.json());
 app.use(express.static("./public"));
-//let players = [];
-//let turn = 0;
+let players = [];
+let turn = 0;
 app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "public/login.html"));
@@ -163,24 +163,97 @@ app.get("/", (req, res) => {
 
 //let players = [];
 //let turn = 0; // Tracks the current player's turn
-//let gameStarted = false;
-//let firstTurnRolls = {}; // Tracks the first turn dice rolls
+let gameStarted = false;
+let hasRolled = {}; // Tracks whether each player has rolled
+let firstTurnRolls = {}; // Tracks the first turn dice rolls
+ // Tracks the current player's turn
+
 io.on("connection", (socket) => {
-  message = "this is my first socket connection";
-  io.emit("connectioningsockt", message);
-   socket.on("updateexistingconnection", () => {
-     socket.emit("update", "This is a second socket connection");
-   });
-   socket.on("newconnectionsing",()=>{
-     socket.emit("newupdate","This is a third socket connection")
-   })
-   socket.on("fourtplayerupdate",()=>{
-     socket.emit("fourthPlayer","This is a fourth player connection")
-   })
-   socket.on("firstplayerupdate",()=>{
-     socket.emit("firstplayer","This is a first player connection")
-   })
+
+  socket.on("assignName",(name)=>{
+    if(name.length <=4 && players.length + name.length<=4){
+      name.forEach((name,index) => {
+        players.push({id:`${socket.id}-${index}`,name});
+      });
+      console.log("players array",players)
+    console.log(`New Player joined :${name} (ID:${socket.id})`);
+    io.emit("playersUpdate", players);
+    }else{
+      socket.emit("errorMessage","Player Limit reached")
+    }
+  });
+  socket.on("disconnect",()=>{
+    players = players.filter((player)=>player.id !== socket.id);
+    console.log(`Player disconnected:${socket.id}`);
+    io.emit("playersUpdate")
+  })
+ let roundCompleted = false; // To track if the first round of rolls is completed
+
+socket.on("rolldice", () => {
+  if (gameStarted) {
+    socket.emit("errorMessage", "The game has already started!");
+    return;
+  }
+  console.log("players array inside rolldice",players)
+  // Check if the player has already rolled in this turn
+  if (hasRolled[socket.id]) {
+    socket.emit("errorMessage", "You have already rolled this turn!");
+    return;
+  }
+
+  // Track that this player has rolled
+  hasRolled[socket.id] = true;
+
+  const diceValue = Math.floor(Math.random() * 6) + 1;
+  console.log(`Players.name ${socket.id}  rolled: ${diceValue}`);
+  io.emit("specialAction",`Players.name ${socket.id}  rolled: ${diceValue}`);
+   console.log("player name console ",players)
+  // Track the first turn rolls for each player
+  if (firstTurnRolls[socket.id] == null) {
+    firstTurnRolls[socket.id] = diceValue;
+  }
+
+  // If the dice value is 6, give the player another chance to roll
+  if (diceValue === 6) {
+    // Find player index
+    const playerIndex = players.findIndex((players) => players.id === socket.id);
+    if (playerIndex !== -1) {
+      const playerName = players[playersIndex].name; // Get the player's name
+
+      // Emit special action message with player in the format "name(ID:socketId)"
+       io.emit("specialAction", `Player ${playerName}(ID:${socket.id}) rolled a 6 and gets another chance!`);
+       console.log(`Emitting specialAction with message: Player ${playerName}(ID:${socket.id}) rolled a 6 and gets another chance!`);
+    }
+
+    // Start the game if it's the first player to roll a 6
+    if (!gameStarted) {
+      gameStarted = true;
+      io.emit("gameStarted", "The game has started!");
+    }
+    return;
+  }
+
+  // Update the turn counter if dice is not 6
+  turn = (turn + 1) % players.length;
+
+  // If all players have rolled, reset roll tracking for the next round
+  if (Object.keys(hasRolled).length === players.length) {
+    // All players have rolled, first round is completed
+    roundCompleted = true; // Mark that the round is done
+
+    // Reset all players' roll status for the next round
+    hasRolled = {};
+  }
+
+  // If round is completed and no one rolled a 6, you can start the game or prompt players
+  if (roundCompleted && !gameStarted) {
+    // If no one rolled a 6, you can start the game manually here, for example:
+    gameStarted = true;
+    io.emit("gameStarted", "Game has started after the first round of rolls!");
+  }
 });
+})
+    
 // io.on("connection", (socket) => {
 //   if (players.length < 4) {
 //     players.push({ id: socket.id, position: 0 });

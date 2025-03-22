@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Game Board</title>
   </head>
   <body>
     <button id="triggerUpdate">Roll Dice</button>
@@ -20,17 +20,27 @@
       const socket = io();
       document.addEventListener("DOMContentLoaded", () => {
         const socket = io();
+        const names = [];
+        for(let i=0; i<4; i++){
+           const name = prompt(`Enter yout Name for ${i+1}:`);
+           if(name){
+            names.push(name);
+           }
+             
+        }
+        socket.emit("assignName",names)
 
         // Listen for "connectioningsockt" and handle the received message
-        socket.on("connectioningsockt", (message) => {
-          const board = document.getElementById("board");
-          if (board) {
-            board.innerHTML = message; // Display the message in the 'board' div
-          } else {
-            console.error("Board element not found!");
-          }
+        socket.on("playersUpdate", (players) => {
+          
+            board.innerHTML = " "; // Display the message in the 'board' div
+         players.forEach((player)=>{
+          const playerDiv = document.createElement("div");
+          playerDiv.innerText = `${player.name}(ID:${player.id})`;
+          board.appendChild(playerDiv)
+         })
         });
-        socket.on("update", (message) => {
+        socket.on("specialAction", (message) => {
           const board = document.getElementById("secondboard");
           if (board) {
             board.innerHTML = message; // Display the received message
@@ -38,53 +48,32 @@
             console.error("Board element not found!");
           }
         });
-        socket.on("newupdate", (message) => {
-          const board = document.getElementById("thirdboard");
-          if (board) {
-            board.innerHTML = message;
-          } else {
-            console.error("Board element not found");
-          }
-        });
-        socket.on("fourthPlayer", (message) => {
-          const board = document.getElementById("fourthboard");
-          if (board) {
-            board.innerHTML = message;
-          } else {
-            console.error("Board element not found");
-          }
-        });
-        socket.on("firstplayer", (message) => {
-          const board = document.getElementById("firstboard");
-          if (board) {
-            board.innerHTML = message;
-          } else {
-            console.error("Board element not found");
-          }
-        });
+
+
+        
         // Triggering the "updateexistingconnection" event when needed
         const triggerButton = document.getElementById("triggerUpdate");
         if (triggerButton) {
           triggerButton.addEventListener("click", () => {
-            socket.emit("updateexistingconnection");
+            socket.emit("rolldice");
           });
         }
         const triggeredButton = document.getElementById("secondtriggerUpdate");
         if (triggeredButton) {
           triggeredButton.addEventListener("click", () => {
-            socket.emit("newconnectionsing");
+            socket.emit("rolldice");
           });
         }
         const fourthdiv = document.getElementById("fourthtriggerUpdate");
         if (fourthdiv) {
           fourthdiv.addEventListener("click", () => {
-            socket.emit("fourtplayerupdate");
+            socket.emit("specialAction");
           });
         }
         const firstDiv = document.getElementById("triggerFirstUpdate");
         if (firstDiv) {
           firstDiv.addEventListener("click", () => {
-            socket.emit("firstplayerupdate");
+            socket.emit("rolldice");
           });
         }
       });
